@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "204455914903",
+    "project_id": "bookclub-ec9e5",
+    "storage_bucket": "bookclub-ec9e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204455914903:android:ffa9a6afc27bb1f4be28d2",
+        "android_client_info": {
+          "package_name": "com.example.book_club"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204455914903-h6m76pfq1h6vhu79sv0rclrs84op7plh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.book_club",
+            "certificate_hash": "05eb85dbc44007be5f971b207993c733de091a76"
+          }
+        },
+        {
+          "client_id": "204455914903-1uuup6s5m2elubodmje1jl5b3erqpdqc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdGoDw6pAKYn5aLkxYx6szKGUJb2bJ7os"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204455914903-1uuup6s5m2elubodmje1jl5b3erqpdqc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 import 'package:book_club/utils/my_theme.dart';
+import 'package:book_club/utils/routes.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatelessWidget {
@@ -91,7 +92,9 @@ class LoginForm extends StatelessWidget {
                           ),
                           Flexible(
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).pushNamed(Routes.signUpForm);
+                              },
                               child: Text(
                                 "Sign up here",
                                 style: Theme.of(context).textTheme.headline3!.copyWith(color: Colors.black),
