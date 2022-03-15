@@ -14,7 +14,54 @@ class AuthProvider with ChangeNotifier {
     required this.firebaseAuth,
   });
 
-  Future<bool> signUpUser(String email, String password) async {}
+  bool get isAuth => authResult.fold(
+        (failure) => false,
+        (authResult) => true,
+      );
 
-  Future<bool> signInUser(String email, String password) async {}
+  Future<void> signUpUser(String email, String password) async {
+    try {
+      final user = await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+
+      if (user.user != null) {
+        authResult = right(
+          AuthResult(
+            email: user.user!.email!,
+            uuid: user.user!.uid,
+          ),
+        );
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      authResult = left(
+        Failure(message: e.toString()),
+      );
+    }
+
+    notifyListeners();
+  }
+
+  Future<void> signInUser(String email, String password) async {
+    try {
+      final user = await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+
+      if (user.user != null) {
+        authResult = right(
+          AuthResult(
+            email: user.user!.email!,
+            uuid: user.user!.uid,
+          ),
+        );
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      authResult = left(
+        Failure(
+          message: e.toString(),
+        ),
+      );
+    }
+  }
 }
