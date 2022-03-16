@@ -1,7 +1,7 @@
 import 'package:book_club/model/notifier_state.dart';
 import 'package:book_club/provider/auth_provider.dart';
 import 'package:book_club/utils/my_theme.dart';
-import 'package:book_club/widget/auth_button.dart';
+import 'package:book_club/widget/button/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -98,21 +98,41 @@ class _LoginFormState extends State<LoginForm> {
                           Flexible(
                             flex: 3,
                             child: Consumer<AuthProvider>(
-                              builder: (_, authProvider, __) => SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.7,
-                                child: authProvider.notifierState == NotifierState.loading
-                                    ? Center(
-                                        child: CircularProgressIndicator(
-                                          color: Theme.of(context).primaryColorDark,
+                              builder: (_, authProvider, __) {
+                                return SizedBox(
+                                  width: MediaQuery.of(context).size.width * 0.7,
+                                  child: authProvider.notifierState == NotifierState.loading
+                                      ? Center(
+                                          child: CircularProgressIndicator(
+                                            color: Theme.of(context).primaryColorDark,
+                                          ),
+                                        )
+                                      : Column(
+                                          children: [
+                                            authProvider.authResult.fold(
+                                              (failure) => Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: failure.message.isEmpty
+                                                    ? Container()
+                                                    : Text(
+                                                        failure.message,
+                                                        style: Theme.of(context).textTheme.headline3!.copyWith(
+                                                              color: Colors.red,
+                                                            ),
+                                                      ),
+                                              ),
+                                              (r) => Container(),
+                                            ),
+                                            AuthButton(
+                                              title: "LOGIN",
+                                              onTap: () async {
+                                                await authProvider.signInUserWithEmail(emailController.text, passwordController.text);
+                                              },
+                                            ),
+                                          ],
                                         ),
-                                      )
-                                    : AuthButton(
-                                        title: "LOGIN",
-                                        onTap: () async {
-                                          await authProvider.signInUser(emailController.text, passwordController.text);
-                                        },
-                                      ),
-                              ),
+                                );
+                              },
                             ),
                           ),
                         ],

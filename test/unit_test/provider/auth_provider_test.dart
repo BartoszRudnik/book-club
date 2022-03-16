@@ -44,7 +44,7 @@ void main() {
 
       expect(authProvider.isAuth, false);
 
-      await authProvider.signInUser("", "");
+      await authProvider.signInUserWithEmail("", "");
 
       verify(
         () => firebaseAuthMock.signInWithEmailAndPassword(

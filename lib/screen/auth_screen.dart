@@ -1,8 +1,10 @@
+import 'package:book_club/provider/auth_provider.dart';
 import 'package:book_club/utils/bubble_indicator_painter.dart';
 import 'package:book_club/utils/const_values.dart';
 import 'package:book_club/widget/login_form.dart';
 import 'package:book_club/widget/sign_up_form.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -107,7 +109,6 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                             ),
                           ),
-                          //Container(height: 33.0, width: 1.0, color: Colors.white),
                           Expanded(
                             child: TextButton(
                               style: ButtonStyle(
@@ -130,6 +131,8 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: PageView(
                     physics: const ClampingScrollPhysics(),
                     onPageChanged: (int i) {
+                      Provider.of<AuthProvider>(context, listen: false).clearError();
+
                       FocusScope.of(context).requestFocus(FocusNode());
                       if (i == 0) {
                         setState(() {

@@ -29,6 +29,14 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void clearError() {
+    authResult = left(
+      Failure(message: ""),
+    );
+
+    notifyListeners();
+  }
+
   Future<void> signUpUser(String email, String password) async {
     setNotifierState(NotifierState.loading);
 
@@ -54,7 +62,7 @@ class AuthProvider with ChangeNotifier {
     setNotifierState(NotifierState.loaded);
   }
 
-  Future<void> signInUser(String email, String password) async {
+  Future<void> signInUserWithEmail(String email, String password) async {
     setNotifierState(NotifierState.loading);
 
     try {
