@@ -33,6 +33,7 @@ flutter:
  
   assets:
      - assets/bookclub_logo.png   
+     - assets/reset_password_logo.png
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

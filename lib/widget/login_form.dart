@@ -1,6 +1,7 @@
 import 'package:book_club/model/notifier_state.dart';
 import 'package:book_club/provider/auth_provider.dart';
 import 'package:book_club/utils/my_theme.dart';
+import 'package:book_club/utils/routes.dart';
 import 'package:book_club/widget/button/auth_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,7 +41,7 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         children: [
           Flexible(
-            flex: 10,
+            flex: 11,
             child: Card(
               color: Colors.white,
               elevation: 10,
@@ -55,12 +56,12 @@ class _LoginFormState extends State<LoginForm> {
                 padding: const EdgeInsets.all(12),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Flexible(
                       flex: 3,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Flexible(
@@ -88,54 +89,46 @@ class _LoginFormState extends State<LoginForm> {
                         ],
                       ),
                     ),
-                    const Spacer(),
                     Flexible(
-                      flex: 3,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Flexible(
-                            flex: 3,
-                            child: Consumer<AuthProvider>(
-                              builder: (_, authProvider, __) {
-                                return SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.7,
-                                  child: authProvider.notifierState == NotifierState.loading
-                                      ? Center(
-                                          child: CircularProgressIndicator(
-                                            color: Theme.of(context).primaryColorDark,
-                                          ),
-                                        )
-                                      : Column(
-                                          children: [
-                                            authProvider.authResult.fold(
-                                              (failure) => Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: failure.message.isEmpty
-                                                    ? Container()
-                                                    : Text(
-                                                        failure.message,
-                                                        style: Theme.of(context).textTheme.headline3!.copyWith(
-                                                              color: Colors.red,
-                                                            ),
+                      flex: 4,
+                      child: Consumer<AuthProvider>(
+                        builder: (_, authProvider, __) {
+                          return SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            child: authProvider.notifierState == NotifierState.loading
+                                ? Center(
+                                    child: CircularProgressIndicator(
+                                      color: Theme.of(context).primaryColorDark,
+                                    ),
+                                  )
+                                : Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      authProvider.authResult.fold(
+                                        (failure) => Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: failure.message.isEmpty
+                                              ? Container()
+                                              : Text(
+                                                  failure.message,
+                                                  style: Theme.of(context).textTheme.headline3!.copyWith(
+                                                        color: Colors.red,
                                                       ),
-                                              ),
-                                              (r) => Container(),
-                                            ),
-                                            AuthButton(
-                                              title: "LOGIN",
-                                              onTap: () async {
-                                                await authProvider.signInUserWithEmail(emailController.text, passwordController.text);
-                                              },
-                                            ),
-                                          ],
+                                                ),
                                         ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
+                                        (r) => Container(),
+                                      ),
+                                      AuthButton(
+                                        title: "LOGIN",
+                                        onTap: () async {
+                                          await authProvider.signInUserWithEmail(emailController.text, passwordController.text);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                          );
+                        },
                       ),
                     ),
                   ],
@@ -146,25 +139,21 @@ class _LoginFormState extends State<LoginForm> {
           const Spacer(),
           Flexible(
             flex: 2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Forgot Password?',
-                        style: Theme.of(context).textTheme.headline2,
-                      ),
-                    ),
-                  ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(Routes.resetPasswordScreen);
+                },
+                child: Text(
+                  'Forgot Password?',
+                  style: Theme.of(context).textTheme.headline2,
                 ),
-              ],
+              ),
             ),
           ),
           Flexible(
+            flex: 2,
             child: Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Row(
@@ -211,9 +200,10 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
           ),
+          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            children: [
               Padding(
                 padding: const EdgeInsets.only(top: 10.0, right: 40.0),
                 child: GestureDetector(

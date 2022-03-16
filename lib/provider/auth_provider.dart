@@ -88,4 +88,20 @@ class AuthProvider with ChangeNotifier {
 
     setNotifierState(NotifierState.loaded);
   }
+
+  Future<void> resetPassword(String email) async {
+    setNotifierState(NotifierState.loading);
+
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      authResult = left(
+        Failure(
+          message: e.toString(),
+        ),
+      );
+    }
+
+    setNotifierState(NotifierState.loaded);
+  }
 }

@@ -41,7 +41,7 @@ class _SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Card(
         color: Colors.white,
         elevation: 10,
@@ -53,16 +53,16 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: const EdgeInsets.all(12),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Flexible(
                 flex: 5,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Flexible(
                       flex: 3,
@@ -112,54 +112,46 @@ class _SignUpFormState extends State<SignUpForm> {
                   ],
                 ),
               ),
-              const Spacer(),
               Flexible(
                 flex: 2,
                 child: Consumer<AuthProvider>(
-                  builder: (_, authProvider, __) => Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Flexible(
-                        flex: 2,
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          child: authProvider.notifierState == NotifierState.loading
-                              ? Center(
-                                  child: CircularProgressIndicator(
-                                    color: Theme.of(context).primaryColorDark,
-                                  ),
-                                )
-                              : Column(
-                                  children: [
-                                    authProvider.authResult.fold(
-                                      (failure) => Padding(
+                  builder: (_, authProvider, __) => SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: authProvider.notifierState == NotifierState.loading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              color: Theme.of(context).primaryColorDark,
+                            ),
+                          )
+                        : Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              authProvider.authResult.fold(
+                                (failure) => failure.message.isEmpty
+                                    ? Container()
+                                    : Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: failure.message.isEmpty
-                                            ? Container()
-                                            : Text(
-                                                failure.message,
-                                                style: Theme.of(context).textTheme.headline3!.copyWith(
-                                                      color: Colors.red,
-                                                    ),
+                                        child: Text(
+                                          failure.message,
+                                          style: Theme.of(context).textTheme.headline3!.copyWith(
+                                                color: Colors.red,
                                               ),
+                                        ),
                                       ),
-                                      (r) => Container(),
-                                    ),
-                                    AuthButton(
-                                      title: "SIGN UP",
-                                      onTap: () async {
-                                        await authProvider.signUpUser(
-                                          emailController.text,
-                                          passwordController.text,
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
-                        ),
-                      ),
-                    ],
+                                (r) => Container(),
+                              ),
+                              AuthButton(
+                                title: "SIGN UP",
+                                onTap: () async {
+                                  await authProvider.signUpUser(
+                                    emailController.text,
+                                    passwordController.text,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                   ),
                 ),
               ),
