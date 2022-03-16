@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ],
-      child: MaterialApp(
+      builder: (context, _) => MaterialApp(
         title: 'Book Club',
         theme: MyTheme().buildTheme(),
         debugShowCheckedModeBanner: false,

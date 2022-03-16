@@ -22,7 +22,6 @@ class MyTheme {
             ),
           ),
           onPrimary: Colors.white,
-          side: BorderSide(color: _darkerGrey),
           primary: _darkerGrey,
         ),
       ),
@@ -52,19 +51,19 @@ class MyTheme {
   InputDecoration loginFormFieldDecoration(BuildContext context, String labelText, IconData iconData) {
     return InputDecoration(
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
+        borderSide: BorderSide(color: Theme.of(context).primaryColorDark, width: 2),
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
+        borderSide: BorderSide(color: Theme.of(context).primaryColorDark, width: 2),
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
       ),
       border: OutlineInputBorder(
-        borderSide: BorderSide(color: Theme.of(context).primaryColorDark),
+        borderSide: BorderSide(color: Theme.of(context).primaryColorDark, width: 2),
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
@@ -74,13 +73,13 @@ class MyTheme {
         color: Colors.transparent,
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Theme.of(context).primaryColor),
+        borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
       ),
       errorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Theme.of(context).primaryColor),
+        borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
