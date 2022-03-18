@@ -123,6 +123,10 @@ class _LoginFormState extends State<LoginForm> {
                                         title: "LOGIN",
                                         onTap: () async {
                                           await authProvider.signInUserWithEmail(emailController.text, passwordController.text);
+
+                                          if (authProvider.isAuth) {
+                                            Navigator.of(context).pop();
+                                          }
                                         },
                                       ),
                                     ],
@@ -227,6 +231,10 @@ class _LoginFormState extends State<LoginForm> {
                   child: GestureDetector(
                     onTap: () async {
                       await authProvider.signInWithGoogle();
+
+                      if (authProvider.isAuth) {
+                        Navigator.of(context).pop();
+                      }
                     },
                     child: Container(
                       padding: const EdgeInsets.all(15.0),

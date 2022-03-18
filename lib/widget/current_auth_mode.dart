@@ -7,13 +7,9 @@ import 'package:provider/provider.dart';
 class CurrentAuthMode extends StatelessWidget {
   const CurrentAuthMode({
     Key? key,
-    required this.leftBlack,
-    required this.leftWhite,
     required this.pageController,
   }) : super(key: key);
 
-  final Function leftBlack;
-  final Function leftWhite;
   final PageController pageController;
 
   @override
@@ -26,11 +22,6 @@ class CurrentAuthMode extends StatelessWidget {
           Provider.of<AuthProvider>(context, listen: false).clearError();
 
           FocusScope.of(context).requestFocus(FocusNode());
-          if (i == 0) {
-            leftBlack();
-          } else if (i == 1) {
-            leftWhite();
-          }
         },
         controller: pageController,
         children: const [

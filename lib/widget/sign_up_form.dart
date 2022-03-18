@@ -148,6 +148,10 @@ class _SignUpFormState extends State<SignUpForm> {
                                     emailController.text,
                                     passwordController.text,
                                   );
+
+                                  if (authProvider.isAuth) {
+                                    Navigator.of(context).pop();
+                                  }
                                 },
                               ),
                             ],

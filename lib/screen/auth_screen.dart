@@ -11,17 +11,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  late PageController _pageController;
-
-  Color left = Colors.black;
-  Color right = Colors.white;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _pageController = PageController();
-  }
+  final PageController _pageController = PageController();
 
   @override
   void dispose() {
@@ -44,20 +34,6 @@ class _AuthScreenState extends State<AuthScreen> {
       duration: const Duration(milliseconds: 300),
       curve: Curves.decelerate,
     );
-  }
-
-  void leftBlack() {
-    setState(() {
-      left = Colors.black;
-      right = Colors.white;
-    });
-  }
-
-  void leftWhite() {
-    setState(() {
-      left = Colors.white;
-      right = Colors.black;
-    });
   }
 
   @override
@@ -100,12 +76,8 @@ class _AuthScreenState extends State<AuthScreen> {
                   pageController: _pageController,
                   onSignInButtonPress: _onSignInButtonPress,
                   onSignUpButtonPress: _onSignUpButtonPress,
-                  left: left,
-                  right: right,
                 ),
                 CurrentAuthMode(
-                  leftBlack: leftBlack,
-                  leftWhite: leftWhite,
                   pageController: _pageController,
                 ),
               ],

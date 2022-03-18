@@ -7,15 +7,11 @@ class AuthModeSwitcher extends StatelessWidget {
     required this.pageController,
     required this.onSignInButtonPress,
     required this.onSignUpButtonPress,
-    required this.left,
-    required this.right,
   }) : super(key: key);
 
   final PageController pageController;
   final Function onSignInButtonPress;
   final Function onSignUpButtonPress;
-  final Color left;
-  final Color right;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +39,13 @@ class AuthModeSwitcher extends StatelessWidget {
                   onPressed: () => onSignInButtonPress(),
                   child: Text(
                     'Existing',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(color: left),
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          color: pageController.hasClients
+                              ? pageController.page == 1
+                                  ? Colors.white
+                                  : Colors.black
+                              : Colors.black,
+                        ),
                   ),
                 ),
               ),
@@ -55,7 +57,13 @@ class AuthModeSwitcher extends StatelessWidget {
                   onPressed: () => onSignUpButtonPress(),
                   child: Text(
                     'New',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(color: right),
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          color: pageController.hasClients
+                              ? pageController.page == 0
+                                  ? Colors.white
+                                  : Colors.black
+                              : Colors.black,
+                        ),
                   ),
                 ),
               ),

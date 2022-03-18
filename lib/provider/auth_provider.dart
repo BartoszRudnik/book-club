@@ -23,7 +23,7 @@ class AuthProvider with ChangeNotifier {
 
   bool get isAuth => authResult.fold(
         (failure) => false,
-        (authResult) => true,
+        (authResult) => authResult.email.isNotEmpty && authResult.uuid.isNotEmpty,
       );
 
   void setNotifierState(NotifierState newState) {
@@ -38,6 +38,54 @@ class AuthProvider with ChangeNotifier {
     );
 
     notifyListeners();
+  }
+
+  Future<void> logout() async {
+    setNotifierState(NotifierState.loading);
+
+    try {
+      await firebaseAuth.signOut();
+
+      authResult = right(
+        AuthResult(
+          email: "",
+          uuid: "",
+        ),
+      );
+    } catch (e) {
+      authResult = left(
+        Failure(
+          message: e.toString(),
+        ),
+      );
+    }
+
+    setNotifierState(NotifierState.loaded);
+  }
+
+  Future<void> autoLogin() async {
+    try {
+      final user = firebaseAuth.currentUser;
+
+      await Future.delayed(Duration.zero);
+
+      if (user != null) {
+        authResult = right(
+          AuthResult(
+            email: user.email!,
+            uuid: user.uid,
+          ),
+        );
+
+        notifyListeners();
+      }
+    } catch (e) {
+      authResult = left(
+        Failure(
+          message: e.toString(),
+        ),
+      );
+    }
   }
 
   Future<void> signInWithGoogle() async {
