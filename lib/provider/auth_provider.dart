@@ -1,6 +1,7 @@
 import 'package:book_club/model/auth_result.dart';
 import 'package:book_club/model/failure.dart';
 import 'package:book_club/model/notifier_state.dart';
+import 'package:book_club/utils/google_sign_in_api.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,11 @@ class AuthProvider with ChangeNotifier {
   Either<Failure, AuthResult> authResult;
   NotifierState _notifierState = NotifierState.initial;
 
-  FirebaseAuth firebaseAuth;
+  final FirebaseAuth firebaseAuth;
+  final GoogleSignInApi googleSignIn;
 
   AuthProvider({
+    required this.googleSignIn,
     required this.authResult,
     required this.firebaseAuth,
   });
@@ -35,6 +38,34 @@ class AuthProvider with ChangeNotifier {
     );
 
     notifyListeners();
+  }
+
+  Future<void> signInWithGoogle() async {
+    setNotifierState(NotifierState.loading);
+
+    try {
+      final userData = await googleSignIn.login();
+      final AuthCredential authCredential = GoogleAuthProvider.credential(
+        accessToken: userData['accessToken'],
+        idToken: userData['idToken'],
+      );
+      final user = await firebaseAuth.signInWithCredential(authCredential);
+
+      if (user.user != null) {
+        authResult = right(
+          AuthResult(
+            email: user.user!.email!,
+            uuid: user.user!.uid,
+          ),
+        );
+      }
+    } catch (e) {
+      authResult = left(
+        Failure(message: e.toString()),
+      );
+    }
+
+    setNotifierState(NotifierState.loaded);
   }
 
   Future<void> signUpUser(String email, String password) async {
