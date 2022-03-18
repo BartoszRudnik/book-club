@@ -39,22 +39,20 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
         bottomOpacity: 0,
-        backgroundColor: Theme.of(context).primaryColorDark,
+        backgroundColor: Colors.transparent,
       ),
-      body: SafeArea(
+      body: Scrollbar(
+        isAlwaysShown: true,
         child: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
           child: Container(
-            height: MediaQuery.of(context).size.height,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            height: MediaQuery.of(context).size.height * 1.1,
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(
-              bottom: 32,
-              left: 20,
-              right: 20,
-            ),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: <Color>[
@@ -67,20 +65,22 @@ class _AuthScreenState extends State<AuthScreen> {
                 tileMode: TileMode.clamp,
               ),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const AppLogo(),
-                AuthModeSwitcher(
-                  pageController: _pageController,
-                  onSignInButtonPress: _onSignInButtonPress,
-                  onSignUpButtonPress: _onSignUpButtonPress,
-                ),
-                CurrentAuthMode(
-                  pageController: _pageController,
-                ),
-              ],
+            child: SafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const AppLogo(),
+                  AuthModeSwitcher(
+                    pageController: _pageController,
+                    onSignInButtonPress: _onSignInButtonPress,
+                    onSignUpButtonPress: _onSignUpButtonPress,
+                  ),
+                  CurrentAuthMode(
+                    pageController: _pageController,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

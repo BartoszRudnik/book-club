@@ -1,4 +1,3 @@
-import 'package:book_club/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {

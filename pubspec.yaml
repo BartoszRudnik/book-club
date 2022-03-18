@@ -19,6 +19,7 @@ dependencies:
   dartz: ^0.10.1
   font_awesome_flutter: ^9.2.0
   google_sign_in: ^5.2.4
+  lottie: ^1.2.2
 
 dev_dependencies:
   flutter_test:
@@ -33,9 +34,9 @@ flutter:
   uses-material-design: true
  
   assets:
-     - assets/bookclub_logo.png   
-     - assets/reset_password_logo.png
-
+     - assets/images/bookclub_logo.png   
+     - assets/images/reset_password_logo.png
+     - assets/lottie/book.json
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
