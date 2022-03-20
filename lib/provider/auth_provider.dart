@@ -90,6 +90,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<String> signInWithGoogle() async {
     setNotifierState(NotifierState.loading);
+    String returnData = '';
 
     try {
       final userData = await googleSignIn.login();
@@ -109,7 +110,7 @@ class AuthProvider with ChangeNotifier {
         );
       }
 
-      return userData['displayName'];
+      returnData = userData['firstName'] + " " + userData['lastName'];
     } catch (e) {
       authResult = left(
         Failure(message: e.toString()),
@@ -118,7 +119,7 @@ class AuthProvider with ChangeNotifier {
 
     setNotifierState(NotifierState.loaded);
 
-    return "";
+    return returnData;
   }
 
   Future<void> signUpUser(String email, String password) async {

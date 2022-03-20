@@ -207,8 +207,8 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           const Spacer(),
-          Consumer<AuthProvider>(
-            builder: (_, authProvider, __) => Row(
+          Consumer2<AuthProvider, UserProvider>(
+            builder: (_, authProvider, userProvider, __) => Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
@@ -235,16 +235,22 @@ class _LoginFormState extends State<LoginForm> {
                       final fullName = await authProvider.signInWithGoogle();
 
                       if (authProvider.isAuth) {
+                        String uuid = "";
+                        String email = "";
+
                         authProvider.authResult.fold(
                           (l) {},
                           (r) async {
-                            await Provider.of<UserProvider>(context, listen: false).createUser(
-                              r.uuid,
-                              r.email,
-                              fullName,
-                              Timestamp.now(),
-                            );
+                            uuid = r.uuid;
+                            email = r.email;
                           },
+                        );
+
+                        await userProvider.createUser(
+                          uuid,
+                          email,
+                          fullName,
+                          Timestamp.now(),
                         );
 
                         Navigator.of(context).pop();

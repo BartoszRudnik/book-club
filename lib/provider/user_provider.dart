@@ -57,8 +57,6 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<void> createUser(String uid, String email, String fullName, Timestamp accountCreated) async {
-    setNotifierState(NotifierState.loading);
-
     try {
       await firebaseFirestore.collection("user").doc(uid).set(
         {
@@ -83,7 +81,5 @@ class UserProvider with ChangeNotifier {
         ),
       );
     }
-
-    setNotifierState(NotifierState.loaded);
   }
 }

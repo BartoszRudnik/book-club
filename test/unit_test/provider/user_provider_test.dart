@@ -45,7 +45,6 @@ void main() {
         Data.user.accountCreated,
       );
 
-      expect(userProvider.notifierState, NotifierState.loaded);
       userProvider.user.fold(
         (failure) => Fail(failure.message),
         (user) => expect(
