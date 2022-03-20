@@ -1,5 +1,6 @@
 import 'package:book_club/model/failure.dart';
 import 'package:book_club/provider/auth_provider.dart';
+import 'package:book_club/provider/user_provider.dart';
 import 'package:book_club/screen/auth_screen.dart';
 import 'package:book_club/screen/home_screen.dart';
 import 'package:book_club/screen/loading_screen.dart';
@@ -7,6 +8,7 @@ import 'package:book_club/screen/start_screen.dart';
 import 'package:book_club/utils/google_sign_in_api.dart';
 import 'package:book_club/utils/my_theme.dart';
 import 'package:book_club/utils/routes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,6 +36,24 @@ class MyApp extends StatelessWidget {
             ),
             googleSignIn: GoogleSignInApi(),
             firebaseAuth: FirebaseAuth.instance,
+          ),
+        ),
+        ChangeNotifierProxyProvider<AuthProvider, UserProvider>(
+          create: (ctx) => UserProvider(
+            firebaseFirestore: FirebaseFirestore.instance,
+            user: left(
+              Failure(message: ""),
+            ),
+          ),
+          update: (ctx, authProvider, previousUserProvider) => UserProvider(
+            firebaseFirestore: FirebaseFirestore.instance,
+            user: previousUserProvider == null
+                ? left(
+                    Failure(
+                      message: "",
+                    ),
+                  )
+                : previousUserProvider.user,
           ),
         ),
       ],
