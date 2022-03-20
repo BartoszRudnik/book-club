@@ -88,11 +88,12 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> signInWithGoogle() async {
+  Future<String> signInWithGoogle() async {
     setNotifierState(NotifierState.loading);
 
     try {
       final userData = await googleSignIn.login();
+
       final AuthCredential authCredential = GoogleAuthProvider.credential(
         accessToken: userData['accessToken'],
         idToken: userData['idToken'],
@@ -107,6 +108,8 @@ class AuthProvider with ChangeNotifier {
           ),
         );
       }
+
+      return userData['displayName'];
     } catch (e) {
       authResult = left(
         Failure(message: e.toString()),
@@ -114,6 +117,8 @@ class AuthProvider with ChangeNotifier {
     }
 
     setNotifierState(NotifierState.loaded);
+
+    return "";
   }
 
   Future<void> signUpUser(String email, String password) async {

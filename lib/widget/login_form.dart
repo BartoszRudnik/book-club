@@ -1,8 +1,10 @@
 import 'package:book_club/model/notifier_state.dart';
 import 'package:book_club/provider/auth_provider.dart';
+import 'package:book_club/provider/user_provider.dart';
 import 'package:book_club/utils/my_theme.dart';
 import 'package:book_club/utils/routes.dart';
 import 'package:book_club/widget/button/auth_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -230,9 +232,21 @@ class _LoginFormState extends State<LoginForm> {
                   padding: const EdgeInsets.only(top: 10.0),
                   child: GestureDetector(
                     onTap: () async {
-                      await authProvider.signInWithGoogle();
+                      final fullName = await authProvider.signInWithGoogle();
 
                       if (authProvider.isAuth) {
+                        authProvider.authResult.fold(
+                          (l) {},
+                          (r) async {
+                            await Provider.of<UserProvider>(context, listen: false).createUser(
+                              r.uuid,
+                              r.email,
+                              fullName,
+                              Timestamp.now(),
+                            );
+                          },
+                        );
+
                         Navigator.of(context).pop();
                       }
                     },

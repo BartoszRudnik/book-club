@@ -1,7 +1,9 @@
 import 'package:book_club/model/notifier_state.dart';
 import 'package:book_club/provider/auth_provider.dart';
+import 'package:book_club/provider/user_provider.dart';
 import 'package:book_club/utils/my_theme.dart';
 import 'package:book_club/widget/button/auth_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -150,6 +152,18 @@ class _SignUpFormState extends State<SignUpForm> {
                                   );
 
                                   if (authProvider.isAuth) {
+                                    authProvider.authResult.fold(
+                                      (l) {},
+                                      (r) async {
+                                        await Provider.of<UserProvider>(context, listen: false).createUser(
+                                          r.uuid,
+                                          r.email,
+                                          fullNameController.text,
+                                          Timestamp.now(),
+                                        );
+                                      },
+                                    );
+
                                     Navigator.of(context).pop();
                                   }
                                 },
