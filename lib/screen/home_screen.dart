@@ -1,26 +1,15 @@
-import 'package:book_club/provider/auth_provider.dart';
+import 'package:book_club/widget/appbar/home_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () async {
-              await Provider.of<AuthProvider>(context, listen: false).logout();
-            },
-            icon: const Icon(
-              Icons.logout_outlined,
-            ),
-          ),
-        ],
-      ),
-      body: const SafeArea(
+    return const Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: HomeAppBar(),
+      body: SafeArea(
         child: Center(
           child: Text("Home"),
         ),
