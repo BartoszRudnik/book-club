@@ -29,11 +29,11 @@ class NoClubScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Lottie.asset(ConstValues.bookLottie),
                   Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: Text(
                       "Welcome to Book Club",
                       style: Theme.of(context).textTheme.headline1!.copyWith(
