@@ -1,7 +1,6 @@
 import 'package:book_club/model/failure.dart';
 import 'package:book_club/provider/auth_provider.dart';
 import 'package:book_club/provider/user_provider.dart';
-import 'package:book_club/screen/auth_screen.dart';
 import 'package:book_club/screen/home_screen.dart';
 import 'package:book_club/screen/loading_screen.dart';
 import 'package:book_club/screen/start_screen.dart';
