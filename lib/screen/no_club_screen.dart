@@ -1,4 +1,5 @@
 import 'package:book_club/utils/const_values.dart';
+import 'package:book_club/utils/routes.dart';
 import 'package:book_club/widget/appbar/home_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -56,7 +57,9 @@ class NoClubScreen extends StatelessWidget {
                 children: [
                   SizedBox(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(Routes.addClub);
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Text(

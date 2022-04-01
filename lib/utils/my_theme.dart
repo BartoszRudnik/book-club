@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MyTheme {
-  final Color _lightGreen = const Color.fromARGB(255, 213, 235, 220);
-  final Color _lightGrey = const Color.fromARGB(255, 164, 164, 164);
-  final Color _darkerGrey = const Color.fromARGB(255, 119, 124, 135);
+  final Color _darkerGrey = Colors.black;
 
   ThemeData buildTheme() {
     return ThemeData(
-      canvasColor: _lightGreen,
-      primaryColor: _lightGrey,
+      scaffoldBackgroundColor: Colors.white,
+      canvasColor: Colors.white,
+      primaryColor: Colors.black,
       primaryColorDark: _darkerGrey,
       colorScheme: const ColorScheme.dark().copyWith(secondary: _darkerGrey),
       textTheme: textTheme(),
