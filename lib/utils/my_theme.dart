@@ -27,6 +27,13 @@ class MyTheme {
     );
   }
 
+  ButtonStyle disabledButtonStyle(BuildContext context) {
+    return ElevatedButton.styleFrom(
+      primary: Colors.grey[700],
+      onPrimary: Theme.of(context).colorScheme.secondary,
+    );
+  }
+
   TextTheme textTheme() {
     return TextTheme(
       headline1: TextStyle(

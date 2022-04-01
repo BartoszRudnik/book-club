@@ -77,6 +77,7 @@ class ClubName extends StatelessWidget {
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 child: ElevatedButton(
+                  style: MyTheme().disabledButtonStyle(context),
                   onPressed: () {
                     Navigator.of(context).pushNamed(
                       Routes.createClub,
