@@ -2,6 +2,7 @@ import 'package:book_club/utils/const_values.dart';
 import 'package:book_club/utils/routes.dart';
 import 'package:book_club/widget/appbar/home_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
 class NoClubScreen extends StatelessWidget {
@@ -32,7 +33,13 @@ class NoClubScreen extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Lottie.asset(ConstValues.bookLottie),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: SvgPicture.asset(
+                      ConstValues.addBook,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: Text(

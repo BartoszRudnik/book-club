@@ -1,5 +1,6 @@
 import 'package:book_club/model/failure.dart';
 import 'package:book_club/provider/auth_provider.dart';
+import 'package:book_club/provider/club_provider.dart';
 import 'package:book_club/provider/user_provider.dart';
 import 'package:book_club/screen/home_screen.dart';
 import 'package:book_club/screen/loading_screen.dart';
@@ -35,6 +36,19 @@ class MyApp extends StatelessWidget {
             ),
             googleSignIn: GoogleSignInApi(),
             firebaseAuth: FirebaseAuth.instance,
+          ),
+        ),
+        ChangeNotifierProxyProvider<AuthProvider, ClubProvider>(
+          create: (ctx) => ClubProvider(
+            clubs: [],
+          ),
+          update: (
+            ctx,
+            authProvider,
+            previousClubProvider,
+          ) =>
+              ClubProvider(
+            clubs: previousClubProvider == null ? [] : previousClubProvider.clubs,
           ),
         ),
         ChangeNotifierProxyProvider<AuthProvider, UserProvider>(

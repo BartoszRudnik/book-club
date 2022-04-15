@@ -19,14 +19,6 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
             Icons.logout_outlined,
           ),
         ),
-        IconButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(Routes.noClub);
-          },
-          icon: const Icon(
-            Icons.abc,
-          ),
-        ),
       ],
     );
   }

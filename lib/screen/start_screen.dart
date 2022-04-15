@@ -1,6 +1,7 @@
 import 'package:book_club/utils/const_values.dart';
 import 'package:book_club/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
 class StartScreen extends StatelessWidget {
@@ -28,14 +29,21 @@ class StartScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
+                  child: Text(
+                    "Book Club",
+                    style: Theme.of(context).textTheme.headline1!.copyWith(
+                          color: Colors.white,
+                          fontSize: 48,
+                        ),
+                  ),
+                ),
+                Expanded(
                   flex: 3,
-                  child: SizedBox.expand(
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: Lottie.asset(
-                        ConstValues.bookLottie,
-                        fit: BoxFit.fill,
-                      ),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: SvgPicture.asset(
+                      ConstValues.addBook,
                     ),
                   ),
                 ),
